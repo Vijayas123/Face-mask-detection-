@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Home</title>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="icon.jpg">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+/* Header/logo Title */
+.header {
+  padding: 5px;
+  text-align: center;
+  background: #1abc9c;
+  color: white;
+}
+
+/* Increase the font size of the heading */
+.header h1 {
+  font-size: 40px;
+}
+
+/* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+}
+
+/* Style the navigation bar links */
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+
+/* Right-aligned link */
+.navbar a.right {
+  float: right;
+}
+
+/* Change color on hover */
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Active/current link */
+.navbar a.active {
+  background-color: #666;
+  color: white;
+}
+
+/* Main column */
+
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+  .navbar a {
+    float: none;
+    width: 100%;
+  }
+}
+/* Add padding to containers */
+
+.main{
+  justify-content: center;
+  align-content: center;
+  margin-left: auto;
+width: 40%;
+  margin-right: auto;
+}
+/* Full-width input fields */
+input[type=text], input[type=password]{
+  width: 500px;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width:100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>FACE MASK DETECTION</h1>
+  </div>{% if filename %}
+	<div>
+		<img src="static/dataset/{{filename}}">
+	</div>
+{% endif %}
+  
+
+<div class="navbar">
+  <a href="#" onclick="document.getElementById('id1').style.display='block';document.getElementById('id2').style.display='none';changeSrc(1)">Image Detection</a>
+  <a href="#"onclick="document.getElementById('id2').style.display='block';document.getElementById('id1').style.display='none'">Video Stream</a>
+</div>
+  <div class="main" id="id1" >
+<form action="uploader" enctype="multipart/form-data" method="post">
+  <div class="container">
+    <h2>Image Detection</h2>
+    <label for="username"><b>Please Upload Image</b></label>
+    <br>
+    <br>
+    <form action="/action_page.php">
+    <input type="file" id="myFile" name="file">
+    <br>
+    <button type="upload" class="registerbtn">Upload</button>
+  </div>
+</form>
+ 
+</div>
+
+<div class="main" id="id2" style="display:none">
+
+<form method="POST" action="/_action.php.php">
+<div class="container">
+  <h2>Video Stream</h2>
+  <form >
+    <!-- <input type="file" id="myFile" name="filename"> -->
+  <label for=""><b>Live Stream (Mobile Net v2)</b></label>
+  <center>
+  <img src="/static/videobuffer.png" id="imgsrc" style="height:400px;width:400px">
+</center>
+<!-- <select name="" id="">
+  <option value="Mobilenetv2"><b>Mobile Net V2</b></option>
+  <option value="Yolov3"><b>Yolo V3</b></option>
+  <option value="Resnet50"><b>Resnet 50</b></option>
+</select> -->
+  
+  <button type="button" class="registerbtn" onclick="changeSrc(0)">Start Stream</button>
+</div>
+</form>
+</div>
+<script>
+  function changeSrc(x){
+    if(x===0){
+      document.getElementById('imgsrc').src="/stream";
+    }
+    else{
+      document.getElementById('imgsrc').src="/static/videobuffer.png";
+    }
+  }
+</script>
+</body>
+</html>
